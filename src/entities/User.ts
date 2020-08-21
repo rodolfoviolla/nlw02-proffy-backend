@@ -4,7 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+
+import Class from './Class';
 
 @Entity('users')
 class User {
@@ -22,6 +25,9 @@ class User {
 
   @Column()
   bio: string;
+
+  @OneToMany(() => Class, user_classes => user_classes.user)
+  user_classes: Class[];
 
   @CreateDateColumn()
   created_at: Date;

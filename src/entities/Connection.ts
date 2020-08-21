@@ -4,13 +4,18 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
+  Column,
 } from 'typeorm';
+
 import User from './User';
 
-@Entity('classes')
+@Entity('connections')
 class Connection {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column('uuid')
+  user_id: string;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })

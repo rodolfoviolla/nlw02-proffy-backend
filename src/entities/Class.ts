@@ -6,8 +6,11 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+
 import User from './User';
+import ClassSchedule from './ClassSchedule';
 
 @Entity('classes')
 class Class {
@@ -26,6 +29,12 @@ class Class {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @OneToMany(() => ClassSchedule, class_schedule => class_schedule.classes, {
+    cascade: true,
+    eager: true,
+  })
+  class_schedule: ClassSchedule[];
 
   @CreateDateColumn()
   created_at: Date;

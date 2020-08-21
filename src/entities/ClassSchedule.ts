@@ -3,10 +3,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
+
 import Class from './Class';
 
 @Entity('class_schedule')
@@ -26,9 +27,9 @@ class ClassSchedule {
   @Column()
   class_id: string;
 
-  @ManyToOne(() => Class)
+  @ManyToOne(() => Class, classes => classes.class_schedule)
   @JoinColumn({ name: 'class_id' })
-  class: Class;
+  classes: Class;
 
   @CreateDateColumn()
   created_at: Date;
