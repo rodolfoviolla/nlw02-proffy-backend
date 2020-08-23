@@ -1,7 +1,8 @@
 import 'reflect-metadata';
 
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import 'express-async-errors';
 
 import routes from './routes';
 
@@ -13,6 +14,13 @@ app.use(express.json());
 app.use(cors());
 app.use(routes);
 
-app.listen(3333);
+app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
+  return response.status(500).json({
+    status: err.name,
+    message: err.message,
+  });
+});
 
-console.log('Service running on port 3333');
+app.listen(3333, () => {
+  console.log('Service running on port 3333');
+});

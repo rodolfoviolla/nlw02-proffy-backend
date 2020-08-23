@@ -7,12 +7,21 @@ import {
   OneToMany,
 } from 'typeorm';
 
+import { Exclude } from 'class-transformer';
+
 import Class from './Class';
 
 @Entity('users')
 class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  @Exclude()
+  password: string;
 
   @Column()
   name: string;

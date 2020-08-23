@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { classToClass } from 'class-transformer';
 
 import convertHourToMinutes from '../utils/convertHourToMinutes';
 
@@ -11,7 +12,7 @@ interface QueryFilters {
   time: string;
 }
 
-export default class ClassController {
+export default class ClassesController {
   public async index(request: Request, response: Response): Promise<Response> {
     const filters = request.query as unknown;
 
@@ -33,11 +34,12 @@ export default class ClassController {
       time: timeInMinutes,
     });
 
-    return response.json(classes);
+    return response.json(classToClass(classes));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { subject, cost, user_id, class_schedule } = request.body;
+    const user_id = request.user.id;
+    const { subject, cost, class_schedule } = request.body;
 
     const createClass = new CreateClassService();
 
