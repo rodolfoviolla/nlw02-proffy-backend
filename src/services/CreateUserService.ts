@@ -5,7 +5,8 @@ import BCryptProvider from '../providers/BCryptProvider';
 import User from '../entities/User';
 
 interface IRequest {
-  name: string;
+  firstname: string;
+  lastname: string;
   email: string;
   password: string;
   avatar: string;
@@ -15,7 +16,8 @@ interface IRequest {
 
 class CreateUserService {
   public async execute({
-    name,
+    firstname,
+    lastname,
     email,
     password,
     avatar,
@@ -29,7 +31,8 @@ class CreateUserService {
     const hashedPassword = await hashProvider.generateHash(password);
 
     const user = usersRepository.create({
-      name,
+      firstname,
+      lastname,
       email,
       password: hashedPassword,
       avatar,

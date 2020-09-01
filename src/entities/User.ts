@@ -24,7 +24,10 @@ class User {
   password: string;
 
   @Column()
-  name: string;
+  firstname: string;
+
+  @Column()
+  lastname: string;
 
   @Column()
   avatar: string;
